@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes">
+  <title>JSON Pretty Print</title>
+  <style>
+    body {
+      padding: 1rem;
+    }
+    #input {
+      display: block;
+      width: 100%;
+      height: 500px;
+      margin-bottom: 1rem;
+    }
+    #error {
+      display: block;
+      margin-top: 1rem;
+      color: red;
+    }
+    #output {
+      display: block;
+      margin-top: 1rem;
+      width: 100%;
+      height: 500px;
+      overflow: auto;
+      unicode-bidi: embed;
+      font-family: monospace;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <h1>JSON Pretty Print</h1>
+  <textarea id="input">
+  </textarea>
+  <button id="submit" type="submit">prettify</button>
+  <div id="error"></div>
+  <textarea id="output" readonly style="display: none"></textarea>
+  <script>
+    const $input = document.querySelector('#input')
+    const $button = document.querySelector('#submit')
+    const $output = document.querySelector('#output')
+    const $error = document.querySelector('#error')
+    $button.addEventListener('click', () => {
+      $output.style.display = 'none'
+      $output.value = ''
+      $error.innerText = ''
+      try {
+        const parsed = JSON.parse($input.value.trim())
+        const value = JSON.stringify(parsed, null, 2)
+        $output.value = value
+        $output.style.display = 'block'
+      } catch (err) {
+        $error.innerText = err.message
+      }
+    })
+  </script>
+  <a href="https://github.com/miguelmota/json-pretty-print" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+</body>
+</html>
+
